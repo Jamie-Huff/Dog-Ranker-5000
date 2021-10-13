@@ -8,35 +8,68 @@ body {
   background-color: #f3f3f3;
 }
 
-.flexbox {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-  max-width: 768px;
-  height: 100vh;
-
-  overflow: hidden;
-
-  margin: 0 auto;
-  padding: 15px;
+.dogBreeds {
+  list-style: none;
 }
 
-.flexbox .board {
+.dogBreeds li {
   display: flex;
+  border: solid 2px red;
+  border-radius: .2em;
+  padding: .5em .8em .5em .5em;
+  margin-bottom: 1em;
+}
+
+.dogBreeds p {
+  max-width: none;
+  font-weight: bold;
+  margin: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.top-head {
+  background-color: #A4C268;
+  margin: 0px;
+  padding: 20px;
+  display: flex;
+}
+
+.top-head-text {
+  color: #54595F;
+  font-size: 40px;
+  margin-left: 600px;
+  margin-top: 40px;
+}
+
+.top-bar-logo {
+  width: 200px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.App-header {
+  background-color: #282c34;
   flex-direction: column;
-
-  width: 100%;
-  max-width: 300px;
-
-  background: #313131;
-
-  padding: 15px;
-}
-
-.flexbox .board .card {
-  padding: 15px 25px;
-  background-color: #f3f3f3;
-  cursor: pointer;
-  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 50px;
 }

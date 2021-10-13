@@ -1,37 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import useApplicationData from "./hooks/useApplicationData";
-import "./styles/main.css"
+import "./styles/main.css";
 import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
 import { increment, decrement } from "./actions";
 import Board from "./components/board";
 import Card from "./components/card";
 import CardList from "./components/cardList";
+import generateDogsArray from "./helpers/generateDogsArray";
+import selectNumberOfDogs from "./helpers/selectNumberOfDogs";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
+const dogBreedList = [
+  {
+    id: 'dog1',
+    name: 'Dobberman',
+  },
+  {
+    id: 'dog2',
+    name: 'Corgi',
+  },
+  {
+    id: 'dog3',
+    name: 'Pug',
+  },
+  {
+    id: 'dog4',
+    name: 'Pepsi Dog',
+  },
+  {
+    id: 'dog5',
+    name: 'Whippet',
+  }
+]
 
 function App() {
+  const [dogBreeds, updateDogBreeds] = useState(dogBreedList);
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
-  let { dogBreeds } = useApplicationData()
-  function waitForDogBreeds(){
-    if (typeof dogBreeds === null) {
-      setTimeout(waitForDogBreeds(), 250)
-    }
+
+  // let { dogBreeds } = useApplicationData();
+  // const dogsArray = generateDogsArray(dogBreeds);
+  // const cards1 = selectNumberOfDogs(dogsArray)[0]
+  // const cards2 = selectNumberOfDogs(dogsArray)[1]
+  // console.log(cards1)
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    const items = Array.from(dogBreeds);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    updateDogBreeds(items);
   }
-  const dogObj = dogBreeds
-  console.log(dogBreeds)
-  
-  const cards = [1, 2, 3, 4, 5]
-  /* Goals:
-    1. Create a page with two tables side by side in the center of the page
-    2. Fill each row with 10 unique breeds from the api, rank them in order
-      - All breeds must be unique, none of the 20 breeds can be the same
-      - Breeds should be new on each refresh
-    3. Table state must be implemented using react
-  */
+
   return (
     <div className="App">
       <div className={"top-head"}>
-        <img src="/images/spg-head.png" className={"top-bar-logo"}></img>
         <div>
           <h1 className={"top-head-text"}>Dog Ranker 5000</h1>
         </div>
@@ -41,24 +66,73 @@ function App() {
       <button onClick={() => dispatch(increment(1))}> Add 1 + </button>
       <button onClick={() => dispatch(increment(5))}> Add 5 + </button>
       <button onClick={() => dispatch(decrement())}>-</button>
-      <main className={'flexbox'}>
+
+    <div className="flex-container">
+      <div className="App-header">
+          <h1>Dog Breeds 1</h1>
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="characters">
+              {(provided) => (
+                <ul className="dogBreeds" {...provided.droppableProps} ref={provided.innerRef}>
+                  {dogBreeds.map(({id, name}, index) => {
+                    return (
+                      <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <p>
+                              { name }
+                            </p>
+                          </li>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+            </DragDropContext>
+        </div>
+
+        <div className="App-header">
+          <h1>Dog Breeds 1</h1>
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="characters">
+              {(provided) => (
+                <ul className="dogBreeds" {...provided.droppableProps} ref={provided.innerRef}>
+                  {dogBreeds.map(({id, name}, index) => {
+                    return (
+                      <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <p>
+                              { name }
+                            </p>
+                          </li>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+            </DragDropContext>
+        </div>
+      </div>
+
+
+      <main className={"flexbox"}>
+        <div> </div>
         <Board id="board-1" className="board">
-        <CardList
-        cards={cards}
-        /> 
+          <CardList cards={[]} />
         </Board>
         <Board id="board-2" className="board">
-          <Card id="card-2" className="card" draggable="true">
-            <p>Card two</p>
-          </Card>
+          <CardList cards={[]} />
         </Board>
       </main>
-      <div>
-
-
-      </div>
+      <div></div>
     </div>
-
   );
 }
 

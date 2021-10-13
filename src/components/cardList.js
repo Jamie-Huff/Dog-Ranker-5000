@@ -10,7 +10,7 @@ export default function CardList(props) {
         className="card" 
         draggable="true"
       >
-        <p>card {index}</p>
+        <p>{card}</p>
       </Card> 
     )
   })
