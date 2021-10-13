@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.top-head {
+  background-color: #A4C268;
+  margin: 0px;
+  padding: 20px;
+  display: flex;
+}
+
+.top-head-text {
+  color: #54595F;
+  font-size: 40px;
+  margin-left: 600px;
+  margin-top: 40px;
+}
+
+.top-bar-logo {
+  width: 200px;
+}
