@@ -8,7 +8,7 @@ const [dogBreeds, setDogBreeds] = useState(null);
     try{
       const { data } = await axios.get('https://dog.ceo/api/breeds/list/all')
       if(data) {
-        const newDogList = data
+        const newDogList = data['message']
         setDogBreeds(newDogList);
       }
     } catch(err) {
