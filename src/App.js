@@ -6,8 +6,6 @@ import { GetRequestHooks } from "./hooks/useApplicationData";
 
 function App() {
   const counter = useSelector((state) => state.counter);
-  // const cards1 = useSelector((state) => state.)
-  // const cards2 = useSelector((state) => state.)
 
   const dispatch = useDispatch();
   const [dogBreeds, setDogBreeds] = useState(null)
@@ -30,16 +28,10 @@ function App() {
   return (
     <div className="App">
       <div className={"top-head"}>
-        <img src="/images/spg-head.png" className={"top-bar-logo"}></img>
         <div>
           <h1 className={"top-head-text"}>Dog Ranker 5000</h1>
         </div>
       </div>
-
-      <h1> Counter {counter}</h1>
-      <button onClick={() => dispatch(increment(1))}> Add 1 + </button>
-      <button onClick={() => dispatch(increment(5))}> Add 5 + </button>
-      <button onClick={() => dispatch(decrement())}>-</button>
 
       <GetRequestHooks />
     </div>

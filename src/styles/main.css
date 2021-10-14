@@ -14,10 +14,8 @@ body {
 
   width: 100%;
   max-width: 768px;
-  height: 100vh;
-
+  height: 150vh;
   overflow: hidden;
-
   margin: 0 auto;
   padding: 15px;
 }
@@ -25,12 +23,9 @@ body {
 .flexbox .board {
   display: flex;
   flex-direction: column;
-
   width: 100%;
   max-width: 300px;
-
   background: #313131;
-
   padding: 15px;
 }
 
@@ -58,7 +53,7 @@ body {
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 150vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +85,7 @@ body {
 .top-head-text {
   color: #54595F;
   font-size: 40px;
-  margin-left: 600px;
+  margin-left: 750px;
   margin-top: 40px;
 }
 
