@@ -6,6 +6,9 @@ import { GetRequestHooks } from "./hooks/useApplicationData";
 
 function App() {
   const counter = useSelector((state) => state.counter);
+  // const cards1 = useSelector((state) => state.)
+  // const cards2 = useSelector((state) => state.)
+
   const dispatch = useDispatch();
   const [dogBreeds, setDogBreeds] = useState(null)
 
@@ -13,7 +16,7 @@ function App() {
   Time dependant theres alot more I wanted to do..
     1. values can't be dragged inbetween components, can only be appended to the end
           Solution: 
-          
+
     2. values keep their identifier even after being moved to the other column
           Solution: Keep track of the state of all the dog breed cards.
             Use an index array to check if that specific key already exists in the array for example !cards1Array.includes(key)

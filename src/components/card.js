@@ -5,12 +5,12 @@ function Card(props) {
     const target = e.target;
     console.log(e)
     e.dataTransfer.setData('card_id', target.id);
+    e.dataTransfer.setData('board_id', target.id)
   }
 
   const dragOver = e => {
     e.stopPropagation();
   }
-  console.log('@@', props)
   return (
     <div
       id={props.id}

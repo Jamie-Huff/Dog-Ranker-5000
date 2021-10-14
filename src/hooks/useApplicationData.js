@@ -21,10 +21,8 @@ function GetRequestHooks() {
 
   const dogsArray = generateDogsArray(JSON.parse(totalReactPackages))
   const dogsVals = selectedDogs(dogsArray)
-  const cards1 = dogsVals[0].map((d) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
-  const cards2 = dogsVals[1].map((d) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
-  const cards3 = dogsVals[0].map((d) => <li key={d.name}>{d}</li>)
-  console.log(cards3)
+  const cards1 = dogsVals[0].map((d, index) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
+  const cards2 = dogsVals[1].map((d, index) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
 
   return (
     <main className={'flexbox'}>
@@ -32,13 +30,14 @@ function GetRequestHooks() {
     <CardList
     cards={cards1}
     allCards={dogsVals}
-    
+    boardId='board-1'
     /> 
     </Board>
     <Board id="board-2" className="board">
     <CardList
     cards={cards2}
     allCards={dogsVals}
+    boardId='board-2'
     />
     </Board>
   </main>
