@@ -1,27 +1,48 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import generateDogsArray from "../helpers/generateDogsArray";
+import selectedDogs from "../helpers/selectNumberOfDogs";
+import CardList from "../components/cardList";
+import Board from "../components/board";
 
-export default function useApplicationData() {
-const [dogBreeds, setDogBreeds] = useState(null);
+function GetRequestHooks() {
+  const [totalReactPackages, setTotalReactPackages] = useState(null);
 
-  const getDogBreeds = async () => {
-    try{
-      const { data } = await axios.get('https://dog.ceo/api/breeds/list/all')
-      if(data) {
-        const newDogList = data['message']
-        setDogBreeds(newDogList);
-      }
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  
   useEffect(() => {
-    getDogBreeds()
+      // GET request using axios inside useEffect React hook
+      axios.get('https://dog.ceo/api/breeds/list/all')
+          .then(response => 
+            setTotalReactPackages(JSON.stringify(response.data.message))
+            );
+
+  // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  return {
-    dogBreeds,
-    setDogBreeds
-  }
+  const dogsArray = generateDogsArray(JSON.parse(totalReactPackages))
+  const dogsVals = selectedDogs(dogsArray)
+  const cards1 = dogsVals[0].map((d) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
+  const cards2 = dogsVals[1].map((d) => <li key={d.name}>Rank #{d.rank}: {d.name}</li>)
+  const cards3 = dogsVals[0].map((d) => <li key={d.name}>{d}</li>)
+  console.log(cards3)
+
+  return (
+    <main className={'flexbox'}>
+    <Board id="board-1" className="board">
+    <CardList
+    cards={cards1}
+    allCards={dogsVals}
+    
+    /> 
+    </Board>
+    <Board id="board-2" className="board">
+    <CardList
+    cards={cards2}
+    allCards={dogsVals}
+    />
+    </Board>
+  </main>
+  );
 }
+
+export { GetRequestHooks }; 

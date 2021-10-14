@@ -1,62 +1,33 @@
-import React, { useState } from "react";
-import useApplicationData from "./hooks/useApplicationData";
-import "./styles/main.css";
+import React, { useState, useEffect } from "react";
+import "./styles/main.css"
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./actions";
-import Board from "./components/board";
-import Card from "./components/card";
-import CardList from "./components/cardList";
-import generateDogsArray from "./helpers/generateDogsArray";
-import selectNumberOfDogs from "./helpers/selectNumberOfDogs";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-
-const dogBreedList = [
-  {
-    id: 'dog1',
-    name: 'Dobberman',
-  },
-  {
-    id: 'dog2',
-    name: 'Corgi',
-  },
-  {
-    id: 'dog3',
-    name: 'Pug',
-  },
-  {
-    id: 'dog4',
-    name: 'Pepsi Dog',
-  },
-  {
-    id: 'dog5',
-    name: 'Whippet',
-  }
-]
+import { GetRequestHooks } from "./hooks/useApplicationData";
 
 function App() {
-  const [dogBreeds, updateDogBreeds] = useState(dogBreedList);
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
+  const [dogBreeds, setDogBreeds] = useState(null)
 
-  // let { dogBreeds } = useApplicationData();
-  // const dogsArray = generateDogsArray(dogBreeds);
-  // const cards1 = selectNumberOfDogs(dogsArray)[0]
-  // const cards2 = selectNumberOfDogs(dogsArray)[1]
-  // console.log(cards1)
+  /*
+  Time dependant theres alot more I wanted to do..
+    1. values can't be dragged inbetween components, can only be appended to the end
+          Solution: 
+          
+    2. values keep their identifier even after being moved to the other column
+          Solution: Keep track of the state of all the dog breed cards.
+            Use an index array to check if that specific key already exists in the array for example !cards1Array.includes(key)
+            Give the new key the next available key slot
 
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
+    3. Can't drag values from the right column to the left. But can drag from left -> right -> left
+          Solution: Research
+  */
 
-    const items = Array.from(dogBreeds);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    updateDogBreeds(items);
-  }
 
   return (
     <div className="App">
       <div className={"top-head"}>
+        <img src="/images/spg-head.png" className={"top-bar-logo"}></img>
         <div>
           <h1 className={"top-head-text"}>Dog Ranker 5000</h1>
         </div>
@@ -67,72 +38,9 @@ function App() {
       <button onClick={() => dispatch(increment(5))}> Add 5 + </button>
       <button onClick={() => dispatch(decrement())}>-</button>
 
-    <div className="flex-container">
-      <div className="App-header">
-          <h1>Dog Breeds 1</h1>
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="characters">
-              {(provided) => (
-                <ul className="dogBreeds" {...provided.droppableProps} ref={provided.innerRef}>
-                  {dogBreeds.map(({id, name}, index) => {
-                    return (
-                      <Draggable key={id} draggableId={id} index={index}>
-                        {(provided) => (
-                          <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <p>
-                              { name }
-                            </p>
-                          </li>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-            </DragDropContext>
-        </div>
-
-        <div className="App-header">
-          <h1>Dog Breeds 1</h1>
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="characters">
-              {(provided) => (
-                <ul className="dogBreeds" {...provided.droppableProps} ref={provided.innerRef}>
-                  {dogBreeds.map(({id, name}, index) => {
-                    return (
-                      <Draggable key={id} draggableId={id} index={index}>
-                        {(provided) => (
-                          <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <p>
-                              { name }
-                            </p>
-                          </li>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-            </DragDropContext>
-        </div>
-      </div>
-
-
-      <main className={"flexbox"}>
-        <div> </div>
-        <Board id="board-1" className="board">
-          <CardList cards={[]} />
-        </Board>
-        <Board id="board-2" className="board">
-          <CardList cards={[]} />
-        </Board>
-      </main>
-      <div></div>
+      <GetRequestHooks />
     </div>
+
   );
 }
 

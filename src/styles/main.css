@@ -8,29 +8,68 @@ body {
   background-color: #f3f3f3;
 }
 
-.dogBreeds {
-  list-style: none;
-}
-
-.dogBreeds li {
+.flexbox {
   display: flex;
-  border: solid 2px red;
-  border-radius: .2em;
-  padding: .5em .8em .5em .5em;
-  margin-bottom: 1em;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 768px;
+  height: 100vh;
+
+  overflow: hidden;
+
+  margin: 0 auto;
+  padding: 15px;
 }
 
-.dogBreeds p {
-  max-width: none;
-  font-weight: bold;
-  margin: 0;
+.flexbox .board {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 300px;
+
+  background: #313131;
+
+  padding: 15px;
+}
+
+.flexbox .board .card {
+  padding: 15px 25px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .App {
   text-align: center;
 }
 
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
 
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -57,19 +96,4 @@ body {
 
 .top-bar-logo {
   width: 200px;
-}
-
-.flex-container {
-  display: flex;
-  justify-content: center;
-}
-
-.App-header {
-  background-color: #282c34;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  margin: 50px;
 }
